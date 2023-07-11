@@ -8,6 +8,7 @@ import (
 	"github.com/99designs/gqlgen/graphql/handler"
 	"github.com/99designs/gqlgen/graphql/playground"
 	"github.com/gemm123/go-graphql/graph"
+	"github.com/gemm123/go-graphql/internal/auth"
 	database "github.com/gemm123/go-graphql/internal/pkg/db/mysql"
 	"github.com/go-chi/chi"
 )
@@ -21,6 +22,8 @@ func main() {
 	}
 
 	router := chi.NewRouter()
+
+	router.Use(auth.Middleware())
 
 	database.InitDB()
 	defer database.CloseDB()
